@@ -1,7 +1,7 @@
 namespace RaceDay.Models;
 
 using RaceDay.Data;
-using RunWayy.Models;
+using RaceDay.Models;
 
 // Links Participant + Event + Category
 public class Enrolment

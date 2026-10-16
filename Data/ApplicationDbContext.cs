@@ -2,8 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using RaceDay.Data;
 using RaceDay.Models;
-using RaceDay.Models;
-using RunWayy.Models;
 using System.Reflection.Emit;
 
 namespace RaceDay.Data
