@@ -1,13 +1,13 @@
-using RaceDayy.Data;
-using RaceDayy.Models;
-using RaceDayy.Models.ViewModels;
+using RaceDay.Data;
+using RaceDay.Models;
+using RaceDay.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace RaceDayy.Controllers;
+namespace RaceDay.Controllers;
 
 [Authorize(Roles = "Admin,Organiser")]
 public class ResultsController : Controller

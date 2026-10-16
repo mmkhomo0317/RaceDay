@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using RaceDayy.Models.ViewModels;
+using RaceDay.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Identity.Client;
-using RaceDayy.Data;
+using RaceDay.Data;
 
-namespace RaceDayy.Controllers
+namespace RaceDay.Controllers
 {
     [Authorize(Roles = "Admin,Organiser")]
     public class UserRoles : Controller
