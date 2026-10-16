@@ -1,11 +1,11 @@
-using RaceDayy.Data;
-using RaceDayy.Models.ViewModels;
+using RaceDay.Data;
+using RaceDay.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace RaceDayy.Controllers;
+namespace RaceDay.Controllers;
 
 [Authorize(Roles = "Admin,Organiser")]
 public class DashboardController : Controller
@@ -35,7 +35,7 @@ public class DashboardController : Controller
     }
 
     // ------------------------------------------------------------------ Organiser
-    private async Task<RaceDayy.Models.ViewModels.OrganiserDashboardViewModel> BuildOrganiserAsync(ApplicationUser user)
+    private async Task<RaceDay.Models.ViewModels.OrganiserDashboardViewModel> BuildOrganiserAsync(ApplicationUser user)
     {
         var now = DateTime.Now;
 
@@ -87,7 +87,7 @@ public class DashboardController : Controller
     }
 
     // ---------------------------------------------------------------- Participant
-    private async Task<RaceDayy.Models.ViewModels.ParticipantDashboardViewModel> BuildParticipantAsync(ApplicationUser user)
+    private async Task<RaceDay.Models.ViewModels.ParticipantDashboardViewModel> BuildParticipantAsync(ApplicationUser user)
     {
         var now = DateTime.Now;
 

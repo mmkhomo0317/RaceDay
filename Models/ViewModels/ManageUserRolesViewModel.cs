@@ -1,4 +1,4 @@
-﻿namespace RaceDayy.Models.ViewModels
+﻿namespace RaceDay.Models.ViewModels
 {
     public class ManageUserRolesViewModel
     {

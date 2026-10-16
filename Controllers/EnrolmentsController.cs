@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using RaceDayy.Data;
-using RaceDayy.Models;
-using RaceDayy.Models.ViewModels;
+using RaceDay.Data;
+using RaceDay.Models;
+using RaceDay.Models.ViewModels;
 
-namespace RaceDayy.Controllers;
+namespace RaceDay.Controllers;
 
 [Authorize(Roles = "Admin,Organiser,Participant")]
 public class EnrolmentsController : Controller

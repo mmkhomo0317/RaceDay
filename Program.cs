@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using RaceDayy.Data;
-using RaceDayy.Models.Interface;
+using RaceDay.Data;
+using RaceDay.Models.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
