@@ -1,7 +1,7 @@
-using RaceDayy.Models;
+using RaceDay.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace RaceDayy.Models;
+namespace RaceDay.Models;
 
 public class Result
 {

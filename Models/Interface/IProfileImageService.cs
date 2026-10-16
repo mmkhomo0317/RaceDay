@@ -1,4 +1,4 @@
-﻿namespace RaceDayy.Models.Interface
+﻿namespace RaceDay.Models.Interface
 {
     public interface IProfileImageService
     {

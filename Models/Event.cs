@@ -1,14 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 
-using RaceDayy.Data;
+using RaceDay.Data;
 
-namespace RaceDayy.Models;
+namespace RaceDay.Models;
 
 public enum EventType
 {
     Run,
     Walk,
-    Cycle
+    Sprint
 }
 
 public class Event
