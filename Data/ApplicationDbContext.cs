@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RaceDay.Data;
 using RaceDay.Models;
-using RaceDayy.Models;
+using RaceDay.Models;
 using RunWayy.Models;
 using System.Reflection.Emit;
 
