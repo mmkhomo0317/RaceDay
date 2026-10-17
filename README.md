@@ -1,5 +1,7 @@
 # RaceDay
 
+- [https://youtu.be/e5Qc235w6vw](https://youtu.be/e5Qc235w6vw)
+
 ![CI](https://github.com/YOUR-USER/YOUR-REPO/actions/workflows/ci.yml/badge.svg)
 
 RaceDay is a web application for running, walking and Srinting events. Organisers create events and split them into categories, participants enrol in the event and category they want, and organisers capture finish times and positions once the race is over. The same system is also exposed as a REST API with Swagger documentation and JWT login.
