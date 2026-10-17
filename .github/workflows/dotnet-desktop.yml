@@ -1,7 +1,7 @@
 name: CI
 
 on:
-  push:            # every push, to any branch
+  push:
   pull_request:
 
 jobs:
