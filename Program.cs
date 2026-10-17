@@ -9,8 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+
+if (!builder.Environment.IsEnvironment("Testing"))
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(connectionString));
+}
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -46,7 +50,11 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+    if (db.Database.IsRelational())
     db.Database.Migrate();
+    else
+    db.Database.EnsureCreated(); //in-memory database used by test
 
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var roles = new[] { "Admin", "Organiser", "Participant" };
@@ -115,3 +123,4 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
+public partial class Program { } // for integration testing
