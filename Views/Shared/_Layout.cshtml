@@ -26,7 +26,27 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Organiser"))
+                            {
+                              <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="UserRoles" asp-action="Index">Manage Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Events" asp-action="Index">Events</a>
+                            </li>
+
+                            }
+                            else if (User.IsInRole("Participant"))
+                            {
+                                <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Enrolments" asp-action="My">Enrolments</a>
+                                </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Enrolments" asp-action="Create">Signup</a>
+                            </li>
+                            }
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
