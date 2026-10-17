@@ -21,7 +21,7 @@ jobs:
         run: dotnet restore RaceDay.slnx
 
       - name: Build
-        run: dotnet build RunWay.slnx --no-restore --configuration Release
+        run: dotnet build RaceDay.slnx --no-restore --configuration Release
 
       - name: Test
-        run: dotnet test RunWay.slnx --no-build --configuration Release --verbosity normal
+        run: dotnet test RaceDay.slnx --no-build --configuration Release --verbosity normal
