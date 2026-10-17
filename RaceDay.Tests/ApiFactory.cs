@@ -1,22 +1,31 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using RaceDay.Data;
 
 namespace RaceDay.Tests;
 
-public class ApiFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
+public class ApiFactory : WebApplicationFactory<Program>
 {
+    private readonly string _dbName = Guid.NewGuid().ToString();
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        builder.UseEnvironment("Testing");
+
         builder.ConfigureServices(services =>
         {
-            services.AddAuthentication(options =>
+            services.AddDbContext<ApplicationDbContext>(o =>
+                o.UseInMemoryDatabase(_dbName));
+
+            services.AddAuthentication(o =>
             {
-                options.DefaultAuthenticateScheme = TestAuthHandler.Scheme;
-                options.DefaultChallengeScheme = TestAuthHandler.Scheme;
-            }).AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(TestAuthHandler.Scheme, options => { });
+                o.DefaultScheme = TestAuthHandler.Scheme;
+                o.DefaultAuthenticateScheme = TestAuthHandler.Scheme;
+                o.DefaultChallengeScheme = TestAuthHandler.Scheme;
+            }).AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(TestAuthHandler.Scheme, _ => { });
         });
     }
 }

@@ -1,12 +1,11 @@
-﻿using Microsoft.VisualStudio.TestPlatform.TestHost;
-using System.Net;
+﻿using System.Net;
 
 namespace RaceDay.Tests;
 
-public class AuthorizationTests : IClassFixture<ApiFactory<Program>>
+public class AuthorizationTests : IClassFixture<ApiFactory>
 {
     private readonly HttpClient _client;
-    public AuthorizationTests(ApiFactory<Program> factory) => _client = factory.CreateClient();
+    public AuthorizationTests(ApiFactory factory) => _client = factory.CreateClient();
 
     private Task<HttpResponseMessage> Send(HttpMethod method, string url, string? role = null)
     {
