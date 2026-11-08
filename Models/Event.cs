@@ -1,6 +1,5 @@
-using System.ComponentModel.DataAnnotations;
-
 using RaceDay.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace RaceDay.Models;
 
@@ -34,6 +33,15 @@ public class Event
 
     [Display(Name = "Event type")]
     public EventType EventType { get; set; }
+
+    [StringLength(500)]
+    [Display(Name = "Banner image")]
+    public string? BannerImageUrl { get; set; }
+
+    [StringLength(200)]
+    //[Display(Name = "Banner blob name")]
+    public string? BannerBlobName { get; set; }
+
 
     // The organiser who owns this event
     public string OrganiserId { get; set; } = string.Empty;
