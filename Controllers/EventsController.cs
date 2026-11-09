@@ -108,23 +108,56 @@ public class EventsController : Controller
         return ev == null ? NotFound() : View(ev);
     }
 
-    [HttpPost, ValidateAntiForgeryToken]
+    [HttpPost, ValidateAntiForgeryToken, RequestSizeLimit(5_000_000)]
     [Authorize(Roles = "Admin,Organiser")]
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit(int id, IFormfile? bannerFile, bool removeBanner)
     {
         var ev = await FindOwnedEventAsync(id);
         if (ev == null) return NotFound();
+
+        var hasBanner = bannerFile is { legnth: > 0 };
+        if (hasBanner)
+        {
+            var error = _blobs.Validate(bannerFile!);
+            if (error != null) ModelState.AddModelError("bannerFile", error);
+        }
 
         // Whitelist bindable properties (prevents over-posting, keeps OrganiserId safe)
         var updated = await TryUpdateModelAsync(ev, "",
             e => e.Name, e => e.Description, e => e.Date,
             e => e.Location, e => e.DistanceKm, e => e.EventType);
 
-        if (!updated) return View(ev);
+        if (!updated || !ModelState.IsVaild) return View(ev);
 
-        await _db.SaveChangesAsync();
-        TempData["Success"] = "Event updated.";
-        return RedirectToAction(nameof(Details), new { id });
+        var oldBlobName = ev.BannerBlobName;
+        BlobUploadResult? upload = null
+
+        try
+        {
+            if (hasBanner)
+            {
+                uploaded = await _blobs.UploadBannerAsync(bannerFile!);
+                ev.BannerBlobName = uploaded. BlobName;
+                ev.BannerImageUrl = uploaded.Url;
+            }
+            else if (removeBanner)
+            {
+                ev.BannerBlobName = null;
+                ev.BannerImageUrl = null;
+            }
+            await _db.SaveChangesAsyncO);
+        }
+        catch
+        {
+            if (uploaded != null) await _blobs.DeleteAsync(uploaded.BlobName);
+            throw;
+        }
+
+        //Only after the database  points at the new image, delete the old one 
+        if ((upload != null || removeBanner) && oldBlobName != null)
+        await _blobs.DeleteAsync(oldBlobName); 
+
+        TempData["Success"] = "Event upload.";
     }
 
     [Authorize(Roles = "Admin,Organiser")]
@@ -148,10 +181,14 @@ public class EventsController : Controller
             return RedirectToAction(nameof(Details), new { id });
         }
 
-        _db.Events.Remove(ev);   // categories are cascade-deleted
+        var blobName = ev.BannerBlobName;
+        _db.Events.Remove(ev);  // categories are cascade-deleted
         await _db.SaveChangesAsync();
+        await _blobs.DeleteAsync(blobName);
+
         TempData["Success"] = "Event deleted.";
         return RedirectToAction(nameof(Index));
+
     }
 
     private Task<Event?> FindOwnedEventAsync(int id)
