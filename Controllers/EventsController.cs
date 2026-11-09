@@ -1,13 +1,13 @@
-using RaceDay.Data;
-using RaceDay.Models;
+using DemoProject.Data;
+using DemoProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace RaceDay.Controllers;
+namespace DemoProject.Controllers;
 
-[Authorize(Roles = "Admin,Organiser,Participant")]
+[Authorize]
 public class EventsController : Controller
 {
     private readonly ApplicationDbContext _db;
